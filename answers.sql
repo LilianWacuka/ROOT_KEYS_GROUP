@@ -85,3 +85,4 @@ ORDER BY status_name ASC;
 -- creating a new user
 CREATE USER 'lilian'@'localhost' IDENTIFIED BY '234';
 CREATE USER 'Faith'@'localhost' IDENTIFIED BY '235';
+-- foreign key will reference the order_id in the books and cust_orders to know how many books are available.
