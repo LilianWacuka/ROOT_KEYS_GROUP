@@ -1,6 +1,6 @@
 CREATE DATABASE bookdb;
 USE bookdb;
--- 2Creating a table for customer orders
+-- Creating a table for customer orders
 CREATE TABLE cust_order (
 order_id INT PRIMARY KEY AUTO_INCREMENT,
  order_name VARCHAR(100)
@@ -31,11 +31,9 @@ VALUES
 CREATE TABLE shipping_method(
 shipping_id INT PRIMARY KEY AUTO_INCREMENT,
 shipping_mode VARCHAR(200),
-order_id INT
-); 
-ALTER TABLE cust_order
-ADD CONSTRAINT fk_shipping_id
-FOREIGN KEY (order_id) REFERENCES shipping_method(shipping_id);
+order_id INT,
+FOREIGN KEY (order_id) REFERENCES cust_order(order_id)
+);
 
 INSERT INTO shipping_method (shipping_mode)
  VALUES
@@ -84,3 +82,57 @@ ORDER BY status_name ASC;
 CREATE USER 'lilian'@'localhost' IDENTIFIED BY '234';
 CREATE USER 'Faith'@'localhost' IDENTIFIED BY '235';
 -- foreign key will reference the order_id in the books and cust_orders to know how many books are available.
+-- creating customer table.
+use bookdb;
+CREATE TABLE customer (
+  customer_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  first_name varchar(100) DEFAULT NULL,
+  last_name varchar(100) DEFAULT NULL,
+  email varchar(255) DEFAULT NULL,
+  phone INT DEFAULT NULL
+  );
+INSERT INTO customer(first_name, last_name, email, phone)
+VALUES
+('Jean','Bikou','jean.bikou@cameroonmail.com','237-123-9876'),
+('Miriam','Ngoa','miriam.ngoa@cameroonmail.com','237-765-4321'),
+('Claude','Tchatchouang','claude.tchatchouang@nigerianmail.com','234-123-4567'),
+('Bernadette','Mouafo','bernadette.mouafo@southafricamail.co.za','27-987-6543'),
+('Emmanuel','Moukouri','emmanuel.moukouri@kenyanmail.co.ke','254-234-5678');
+CREATE TABLE customer_address (
+  address_id INT PRIMARY KEY AUTO_INCREMENT,
+  customer_id int(11) NOT NULL,
+  address_name VARCHAR(255) DEFAULT NULL,
+  FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+  );
+
+INSERT INTO customer_address (customer_id, address_name)
+VALUES 
+    ('1','123 Main Street'),
+    ('2','456 Oak Avenue'),
+    ('3','789 Pine Road'),
+    ('4','321 Maple Drive'),
+    ('5', '654 Elm Street');
+
+CREATE TABLE address_status(
+  status_id INT PRIMARY KEY AUTO_INCREMENT,
+  status_name varchar(200),
+  address_id INT,
+  FOREIGN KEY (address_id) REFERENCES customer_address(address_id)
+  );
+INSERT INTO address_status (status_name)
+VALUES
+ ('Current'),
+ ('Old');
+CREATE TABLE country (
+  country_id INT PRIMARY KEY AUTO_INCREMENT,
+  country_name varchar(100) NOT NULL,
+  address_id INT,
+  FOREIGN KEY (address_id) REFERENCES customer_address (address_id)
+  );
+INSERT INTO country(country_name)
+ VALUES 
+ ('Cameroon'),
+ ('Nigeria'),
+ ('South Africa'),
+ ('Kenya'),
+ ('Ghana');
