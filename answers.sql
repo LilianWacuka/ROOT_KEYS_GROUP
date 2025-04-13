@@ -1,6 +1,6 @@
 CREATE DATABASE bookdb;
 USE bookdb;
--- 2Creating a table for customer orders
+-- Creating a table for customer orders
 CREATE TABLE cust_order (
 order_id INT PRIMARY KEY AUTO_INCREMENT,
  order_name VARCHAR(100)
@@ -31,11 +31,9 @@ VALUES
 CREATE TABLE shipping_method(
 shipping_id INT PRIMARY KEY AUTO_INCREMENT,
 shipping_mode VARCHAR(200),
-order_id INT
-); 
-ALTER TABLE cust_order
-ADD CONSTRAINT fk_shipping_id
-FOREIGN KEY (order_id) REFERENCES shipping_method(shipping_id);
+order_id INT,
+FOREIGN KEY (order_id) REFERENCES cust_order(order_id)
+);
 
 INSERT INTO shipping_method (shipping_mode)
  VALUES
