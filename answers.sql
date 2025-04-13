@@ -73,9 +73,7 @@ VALUES
 ('Delivered');
 
 -- testing queries
-SELECT * 
-FROM order_line
-WHERE book_id = 1;
+
 
 SELECT status_name,status_id
 FROM order_status
