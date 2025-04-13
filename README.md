@@ -17,3 +17,5 @@
 # order_history: A record of the history of an order (e.g., ordered, cancelled, delivered).
 # order_status: A list of possible statuses for an order (e.g., pending, shipped, delivered). 
 # creating user
+# Assigning roles.
+# Granting privilleges.
